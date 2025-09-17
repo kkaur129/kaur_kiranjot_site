@@ -1,23 +1,23 @@
 
-# This line of code uses Node.js LTS as base image
+# Use Node.js 20 (LTS) as the base image
 FROM node:20
 
-# This line of code sets working directory inside container
+#Define the working directory inside the container
 WORKDIR /g
 
-# This line of code copy package files first to install dependencies
+# Copy dependency definition files first
 COPY package*.json ./
 
-# This will Install dependencies
+# Install all required dependencies
 RUN npm install
 
-# This line of code copy all project files into container
+#  Copy the rest of the application source code
 COPY . .
 
-# this will expose port 7775
+#  Make port 7775 available to the host machine
 EXPOSE 7775
 
-# this will start the React app
+# Start the React development server
 CMD ["npm", "start"]
 
 
