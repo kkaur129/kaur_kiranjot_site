@@ -39,12 +39,19 @@ git push origin master
 ## My Docker Setup
 
 **Dockerfile explanation:**
-- Uses Node.js 20 as the base
-- Sets working directory to /kaur_kiranjot_site
-- Copies my package.json first, then installs dependencies
-- Copies all my code
-- Exposes port 7775
-- Starts the React app
+- FROM node:20 → Uses the latest Node.js LTS image.
+
+- WORKDIR /kaur_kiranjot_site → Creates and switches into a working directory inside the container.
+
+- COPY package.json ./* → Copies dependency files first so Docker can cache npm install for faster builds.
+
+- RUN npm install → Installs all project dependencies.
+
+- COPY . . → Copies the rest of the application code.
+
+- EXPOSE 7775 → Makes port 7775 available so the app can be accessed from the host machine.
+
+- CMD ["npm", "start"] → Runs the React development server. Because the start script in package.json is set to cross-env PORT=7775 react-scripts start, the app will launch on port 7775.
 
 **Package.json setup:**
 I changed the start script to use port 7775:
